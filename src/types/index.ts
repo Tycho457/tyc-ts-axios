@@ -1,10 +1,18 @@
-export type method = 'get' | 'GET' 
-|'delete' | 'Delete'
-|'head' | 'HEAD'
-|'options' | 'OPTIONS'
-|'post' | 'POST'
-|'put' | 'PUT'
-|'patch' | 'PATCH'
+export type Method =
+  | 'get'
+  | 'GET'
+  | 'delete'
+  | 'DELETE'
+  | 'head'
+  | 'HEAD'
+  | 'options'
+  | 'OPTIONS'
+  | 'post'
+  | 'POST'
+  | 'put'
+  | 'PUT'
+  | 'patch'
+  | 'PATCH'
 
 export interface AxiosRequestConfig {
     url?: string
@@ -51,4 +59,17 @@ export interface AxiosInstance extends Axios {
 }
 
 export interface AxiosPromise<T = any> extends Promise<AxiosResponse<T>> {
+}
+
+export interface AxiosInterceptorManager<T> {
+    use(resolved: ResolvedFn<T>, rejected?: RejectedFn): number
+    eject(id: number): void
+}
+
+export interface ResolvedFn<T=any> {
+    (val: T): T | Promise<T>
+}
+
+export interface RejectedFn {
+    (error: any): any
 }
