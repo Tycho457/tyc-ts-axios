@@ -4,7 +4,14 @@ import { createError } from '../helpers/error'
 
 export default function xhr(config:AxiosRequestConfig): AxiosPromise{
     return new Promise((resolve: (arg0: AxiosResponse) => void,reject: (arg0: Error) => void)=>{
-        const {data = null , url, method = 'get', headers, responseType, timeout} = config
+        const {data = null , url, method = 'get', headers, responseType, timeout, cancelToken} = config
+
+        if(cancelToken) {
+            cancelToken.promise.then(reason => {
+                request.abort()
+                reject(reason)
+            })
+        }
 
         const request = new XMLHttpRequest()
         if( responseType ) {
