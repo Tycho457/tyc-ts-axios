@@ -26,6 +26,15 @@ export interface AxiosRequestConfig {
     transformRequest?: AxiosTransformer | AxiosTransformer[]
     transformResponse?: AxiosTransformer | AxiosTransformer[]
     cancelToken?: CancelToken
+    onDownloadProgress?: (e: ProgressEvent) => void
+    onUploadProgress?: (e: ProgressEvent) => void
+    auth?: AxiosBasicCredentials
+    validateStatus?: (status: number) => boolean
+    paramsSerializer?: (params: any) => string
+    baseURL?: string
+    withCredentials?: boolean
+    xsrfCookieName?: string
+    xsrfHeaderName?: string
 }
 
 export interface AxiosResponse<T = any> {
@@ -125,4 +134,9 @@ export interface AxiosStatic extends AxiosInstance {
     CancelToken: CancelerTokenStatic
     Cancel: CancelStatic
     isCancel: (value: any) => boolean
+}
+
+export interface AxiosBasicCredentials {
+    username: string
+    password: string
 }
